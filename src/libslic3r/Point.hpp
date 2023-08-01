@@ -160,9 +160,17 @@ public:
     using coord_type = coord_t;
 
     Point() : Vec2crd(0, 0) {}
+
+    // These constructors are helpful for when we need a point with equal coordinates,
+    // and we don't need to repeat any operations or conversions.
+    Point(int32_t xy) : Vec2crd(coord_t(xy), coord_t(xy)) {}
+    Point(int64_t xy) : Vec2crd(coord_t(xy), coord_t(xy)) {}
+    Point(double xy) : Vec2crd(xy, xy) {}
+
     Point(int32_t x, int32_t y) : Vec2crd(coord_t(x), coord_t(y)) {}
     Point(int64_t x, int64_t y) : Vec2crd(coord_t(x), coord_t(y)) {}
     Point(double x, double y) : Vec2crd(coord_t(std::round(x)), coord_t(std::round(y))) {}
+
     Point(const Point &rhs) { *this = rhs; }
 	explicit Point(const Vec2d& rhs) : Vec2crd(coord_t(std::round(rhs.x())), coord_t(std::round(rhs.y()))) {}
 	// This constructor allows you to construct Point from Eigen expressions
